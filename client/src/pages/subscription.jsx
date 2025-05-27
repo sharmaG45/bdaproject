@@ -72,7 +72,7 @@ Only registered dieticians can organise dietetic internship programmes under the
       title: "Honorary Membership (HM)",
       eligibility:
         "Any person interested in the field of dietetics and nutrition who believes in and supports the aims and objectives of the association is granted honorary membership after consideration and confirmation by the NEC.",
-      price: "₹000 /-",
+      price: "₹0 /-",
       documents: [
         "Curriculum Vitae (CV)",
         "A soft copy of a passport-size recent photograph in colour",

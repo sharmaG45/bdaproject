@@ -124,7 +124,7 @@ const Success = () => {
       <div className="min-h-screen bg-gray-50 py-10 px-4 flex justify-center">
         <div className="max-w-3xl w-full bg-white rounded-lg shadow-lg p-8">
           <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">
-            Preview Submission
+           Membership Details 
           </h2>
 
           <div className="flex gap-10">
@@ -253,15 +253,6 @@ const Success = () => {
                 </div>
               )}
             </div>
-          </div>
-
-          <div className="mt-10 flex justify-center">
-            <button
-              onClick={() => navigate(-1)}
-              className="px-6 py-3 bg-gray-700 text-white rounded-lg hover:bg-gray-800 transition font-semibold"
-            >
-              Back
-            </button>
           </div>
         </div>
       </div>
