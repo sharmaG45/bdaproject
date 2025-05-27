@@ -5,70 +5,104 @@ const axios = require("axios");
 const { userRouter } = require("./routes/user");
 const crypto = require("crypto");
 const { v4: uuidv4 } = require("uuid");
-
+const { log } = require("console");
+const path = require("path");
 const app = express();
 
-app.use(cors({
-  origin: process.env.FRONTEND_URL,
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL, // your React/Vite frontend port
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  })
+);
+
 app.use(express.json());
+
+app.use(express.static(path.join(__dirname, "../client/dist")));
+
 app.use("/api/v1", userRouter);
 
-// 🔐 Secure environment variables
-const MERCHANT_ID = process.env.MERCHANT_ID;
 const MERCHANT_KEY = process.env.MERCHANT_KEY;
+const MERCHANT_ID = process.env.MERCHANT_ID;
 
-// ✅ Production endpoints
+// For Production
 const MERCHANT_BASE_URL = "https://api.phonepe.com/apis/hermes/pg/v1/pay";
 const MERCHANT_STATUS_URL = "https://api.phonepe.com/apis/hermes/pg/v1/status";
 
+// const MERCHANT_BASE_URL =
+//   "https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/pay";
+// const MERCHANT_STATUS_URL =
+//   "https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/status";
+
 const redirectUrl = `${process.env.BACKEND_URL}/status`;
+
 const successUrl = `${process.env.FRONTEND_URL}/payment-success`;
 const failureUrl = `${process.env.FRONTEND_URL}/payment-failure`;
 
 app.post("/create-order", async (req, res) => {
   const { name, mobileNumber, amount } = req.body;
   const orderId = uuidv4();
-  const fullPhone = `+91${mobileNumber}`;
 
+  console.log(
+    "************************************",
+    name,
+    mobileNumber,
+    amount,
+    "************************************"
+  );
+  const fullPhone = `+91${mobileNumber}`;
+  //payment
   const paymentPayload = {
     merchantId: MERCHANT_ID,
     merchantUserId: name,
     mobileNumber: mobileNumber,
-    amount: Number(amount) * 100, // 💰 Amount in paise
+    amount: Number(amount) * 100,
     merchantTransactionId: orderId,
-    redirectUrl: `${redirectUrl}?id=${orderId}&phone=${encodeURIComponent(fullPhone)}`,
+    redirectUrl: `${redirectUrl}/?id=${orderId}&phone=${encodeURIComponent(
+      fullPhone
+    )}`,
     redirectMode: "POST",
     paymentInstrument: {
       type: "PAY_PAGE",
     },
   };
 
-  const payload = Buffer.from(JSON.stringify(paymentPayload)).toString("base64");
+  const payload = Buffer.from(JSON.stringify(paymentPayload)).toString(
+    "base64"
+  );
   const keyIndex = 1;
-  const stringToHash = payload + "/pg/v1/pay" + MERCHANT_KEY;
-  const sha256 = crypto.createHash("sha256").update(stringToHash).digest("hex");
+  const string = payload + "/pg/v1/pay" + MERCHANT_KEY;
+  const sha256 = crypto.createHash("sha256").update(string).digest("hex");
   const checksum = sha256 + "###" + keyIndex;
 
-  try {
-    const response = await axios.post(MERCHANT_BASE_URL, {
-      request: payload,
-    }, {
-      headers: {
-        "Content-Type": "application/json",
-        "X-VERIFY": checksum,
-        "X-MERCHANT-ID": MERCHANT_ID,
-      },
-    });
+  console.log("Encoded Payload:", payload);
+  console.log("X-VERIFY Header:", checksum);
 
-    const redirectUrl = response.data.data.instrumentResponse.redirectInfo.url;
-    return res.status(200).json({ url: redirectUrl });
+  const option = {
+    method: "POST",
+    url: MERCHANT_BASE_URL,
+    headers: {
+      accept: "application/json",
+      "Content-Type": "application/json",
+      "X-VERIFY": checksum,
+      "X-MERCHANT-ID": MERCHANT_ID,
+    },
+    data: {
+      request: payload,
+    },
+  };
+  try {
+    const response = await axios.request(option);
+    console.log(response.data.data.instrumentResponse.redirectInfo.url);
+    res.status(200).json({
+      msg: "OK",
+      url: response.data.data.instrumentResponse.redirectInfo.url,
+    });
   } catch (error) {
-    console.error("PhonePe Payment Error:", error?.response?.data || error.message);
-    return res.status(500).json({ error: "Failed to initiate payment" });
+    console.log("error in payment", error);
+    res.status(500).json({ error: "Failed to initiate payment" });
   }
 });
 
@@ -76,35 +110,55 @@ app.post("/status", async (req, res) => {
   const merchantTransactionId = req.query.id;
   const phone = req.query.phone;
 
+  console.log("User Phone Number", phone);
+
   const keyIndex = 1;
-  const path = `/pg/v1/status/${MERCHANT_ID}/${merchantTransactionId}`;
-  const stringToHash = path + MERCHANT_KEY;
-  const sha256 = crypto.createHash("sha256").update(stringToHash).digest("hex");
+  const string =
+    `/pg/v1/status/${MERCHANT_ID}/${merchantTransactionId}` + MERCHANT_KEY;
+  const sha256 = crypto.createHash("sha256").update(string).digest("hex");
   const checksum = sha256 + "###" + keyIndex;
 
+  const option = {
+    method: "GET",
+    url: `${MERCHANT_STATUS_URL}/${MERCHANT_ID}/${merchantTransactionId}`,
+    headers: {
+      accept: "application/json",
+      "Content-Type": "application/json",
+      "X-VERIFY": checksum,
+      "X-MERCHANT-ID": MERCHANT_ID,
+    },
+  };
+
   try {
-    const response = await axios.get(`${MERCHANT_STATUS_URL}/${MERCHANT_ID}/${merchantTransactionId}`, {
-      headers: {
-        "Content-Type": "application/json",
-        "X-VERIFY": checksum,
-        "X-MERCHANT-ID": MERCHANT_ID,
-      },
-    });
+    const response = await axios.request(option);
+    console.log(
+      "Full PhonePe status response:",
+      JSON.stringify(response.data, null, 2)
+    );
 
     const status = response.data?.data?.state;
     const responseCode = response.data?.data?.responseCode;
     const transactionId = response.data?.data?.transactionId;
 
+    console.log("Transaction State:", status);
+    console.log("Response Code:", responseCode);
+
     if (status === "COMPLETED" && responseCode === "SUCCESS") {
-      return res.redirect(`${successUrl}?transactionId=${transactionId}&phone=${phone}`);
+      console.log("Transaction Details", transactionId);
+
+      return res.redirect(
+        `${successUrl}?transactionId=${transactionId}&phone=${phone}`
+      );
     } else {
       return res.redirect(failureUrl);
     }
   } catch (err) {
-    console.error("Status Check Error:", err?.response?.data || err.message);
+    console.error("Payment status check error:", err);
     return res.redirect(failureUrl);
   }
 });
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running at http://localhost:${PORT}`));
+app.listen(PORT, () => {
+  console.log(`Server Running at http://localhost:${PORT}`);
+});

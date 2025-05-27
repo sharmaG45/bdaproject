@@ -1,9 +1,8 @@
 const express = require("express");
 const userRouter = express.Router();
 const twilio = require("twilio");
-const { db, docRef } = require("../configs/firebase"); // adjust path if needed
+const { db} = require("../configs/firebase"); // adjust path if needed
 require("dotenv").config();
-const Razorpay = require("razorpay");
 const multer = require("multer");
 const storage = multer.memoryStorage(); // or use diskStorage if you want to save to disk
 const upload = multer({ storage });
@@ -12,19 +11,6 @@ const client = new twilio(
   process.env.YOUR_ACCOUNT_SID,
   process.env.YOUR_AUTH_TOKEN
 );
-
-const tempUsers = {
-  "+919097989707": {
-    userData: {
-      title: "Mr",
-      FirstName: "Ravi",
-      LastName: "Kumar",
-      Phone: "+919097989707",
-      email: "ravi@example.com",
-    },
-    otp: 123456,
-  },
-};
 
 userRouter.post("/step-one", async (req, res) => {
   const { title, FirstName, LastName, Phone, email } = req.body;
@@ -171,9 +157,8 @@ M.Sc. Dietetics / M.Sc. Nutrition / M.Sc. Dietetics & Nutrition / M.Sc. Nutritio
 
 userRouter.get("/userData/:phone", async (req, res) => {
   const { phone } = req.params;
-  
-  console.log("Phone NUmber",phone);
-  
+
+  console.log("Phone NUmber", phone);
 
   console.log(`Requested Phone Number: ${phone}`);
 
@@ -448,6 +433,7 @@ userRouter.post(
     }
   }
 );
+
 userRouter.post("/verify_otp", async (req, res) => {
   const { Phone, otp } = req.body;
 
