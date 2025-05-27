@@ -55,6 +55,8 @@ const PaymentSuccessPage = () => {
         `${import.meta.env.VITE_BACKEND_URL}/create-order`,
         data
       );
+
+      // 👇 Redirecting user to PhonePe payment page
       window.location.href = response.data.url;
     } catch (err) {
       console.log("Error in Payment", err);
