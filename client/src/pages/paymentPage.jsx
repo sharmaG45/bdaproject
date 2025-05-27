@@ -85,7 +85,7 @@ const PaymentSuccessPage = () => {
             {membership.title}
           </h2>
           <p className="text-4xl font-extrabold text-yellow-500">
-            ₹{membership.price}
+            {membership.price}
           </p>
           <p className="text-gray-600 mt-2 text-sm text-center">
             Subscription amount

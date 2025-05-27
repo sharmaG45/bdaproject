@@ -9,6 +9,44 @@ const MembershipForm = () => {
 
   const memberships = [
     {
+      id: "HM",
+      title: "Honorary Membership (HM)",
+      eligibility:
+        "Any person interested in the field of dietetics and nutrition who believes in and supports the aims and objectives of the association is granted honorary membership after consideration and confirmation by the NEC.",
+      price: "₹0 /-",
+      documents: [
+        "Curriculum Vitae (CV)",
+        "A soft copy of a passport-size recent photograph in colour",
+      ],
+      benefits: ["Recognition by the NEC", "No membership fee applicable"],
+    },
+    {
+      id: "SM",
+      title: "Student Membership (SM)",
+      eligibility: `Any student pursuing Graduation, Postgraduation, Diploma or Postgraduate Diploma (after B.Sc.) or Degree or Postgraduate Degree in Dietetics / Nutrition / Dietetics & Nutrition / Nutrition and Dietetics / Dietetics & Food Service Management / Clinical Nutrition and Dietetics / Food Nutrition and Dietetics / Food Science and Nutrition / Food and Nutrition / Food Technology & Nutrition and their specialization from a recognized university or its equivalent in other countries, shall be eligible for student membership in the association.
+The membership shall be valid for a year, which has to be renewed every year.
+After course completion the member can avail of a life membership.`,
+      price: "₹ 500 /-",
+      documents: [
+        "Soft copies of all marksheet/degree of academic qualifications, internships, or training.",
+        "Details of your work experience, if any.",
+        "A soft copy of a passport-size recent photograph in colour.",
+        "Credit, debit card, UPI, or net banking details are needed to complete the payment.",
+      ],
+      benefits: [
+        "A downloadable official BDA Certificate of Membership.",
+        "Use of the website for member activities and e-learning.",
+        "Reduced subscription rates to conferences, seminars, workshops, symposiums, courses, and journals.",
+        "Reduced entrance fees to international, national, and affiliated regional meetings by BDA.",
+        "Regular e-newsletters on various topics pertaining to dietetics and nutrition.",
+      ],
+      additionalBenefits: [
+        "Apply for the Scholarship in the Dietetics and Nutrition field.",
+        "Student Members shall be entitled to participate in all activities of the BDA.",
+        "Award of appreciation to the individuals who have made extraordinary contributions.",
+      ],
+    },
+    {
       id: "AM",
       title: "Associate Membership (AM)",
       eligibility: `
@@ -68,27 +106,15 @@ Only registered dieticians can organise dietetic internship programmes under the
       price: "₹ 2500 /-",
     },
     {
-      id: "HM",
-      title: "Honorary Membership (HM)",
-      eligibility:
-        "Any person interested in the field of dietetics and nutrition who believes in and supports the aims and objectives of the association is granted honorary membership after consideration and confirmation by the NEC.",
-      price: "₹0 /-",
+      id: "LM",
+      title: "Life Member (LM).",
+      eligibility: `A person is eligible for life membership if he or she has the minimum educational qualifications:
+M.Sc. Dietetics / M.Sc. Nutrition / M.Sc. Dietetics & Nutrition / M.Sc. Nutrition and Dietetics / M.Sc. Dietetics & Food Service Management / M.Sc. Clinical Nutrition and Dietetics / M.Sc. Food, Nutrition and Dietetics / M.Sc. Food Science and Nutrition / M.Sc. Food and Nutrition from a recognized university plus six months of internship.
+​After qualifying the eligibility criteria for Registered Dietician (RD), the life member can avail of RD membership.`,
+      price: "	₹ 2500 /-",
       documents: [
-        "Curriculum Vitae (CV)",
-        "A soft copy of a passport-size recent photograph in colour",
-      ],
-      benefits: ["Recognition by the NEC", "No membership fee applicable"],
-    },
-    {
-      id: "SM",
-      title: "Student Membership (SM)",
-      eligibility: `Any student pursuing Graduation, Postgraduation, Diploma or Postgraduate Diploma (after B.Sc.) or Degree or Postgraduate Degree in Dietetics / Nutrition / Dietetics & Nutrition / Nutrition and Dietetics / Dietetics & Food Service Management / Clinical Nutrition and Dietetics / Food Nutrition and Dietetics / Food Science and Nutrition / Food and Nutrition / Food Technology & Nutrition and their specialization from a recognized university or its equivalent in other countries, shall be eligible for student membership in the association.
-The membership shall be valid for a year, which has to be renewed every year.
-After course completion the member can avail of a life membership.`,
-      price: "₹ 500 /-",
-      documents: [
-        "Soft copies of all marksheet/degree of academic qualifications, internships, or training.",
-        "Details of your work experience, if any.",
+        "Soft copies of all marksheet/degree of academic qualifications, internships, or training and updated curriculum vitae (CV).",
+        "Details of your work experience.",
         "A soft copy of a passport-size recent photograph in colour.",
         "Credit, debit card, UPI, or net banking details are needed to complete the payment.",
       ],
@@ -100,9 +126,10 @@ After course completion the member can avail of a life membership.`,
         "Regular e-newsletters on various topics pertaining to dietetics and nutrition.",
       ],
       additionalBenefits: [
-        "Apply for the Scholarship in the Dietetics and Nutrition field.",
-        "Student Members shall be entitled to participate in all activities of the BDA.",
-        "Award of appreciation to the individuals who have made extraordinary contributions.",
+        "Apply for the Centre of Excellence and Fellowship in the Dietetics and Nutrition field.",
+        "Life Members shall be entitled to participate in all activities of the BDA.",
+        "Life Members will be eligible to be officers of the BDA.",
+        "Award of appreciation to the individuals who have made extraordinary contributions to the hospital, research, and health administration.",
       ],
     },
     {
@@ -154,33 +181,6 @@ The process of availing of membership shall be the same as for domestic membersh
       ],
     },
     {
-      id: "LM",
-      title: "Life Member (LM).",
-      eligibility: `A person is eligible for life membership if he or she has the minimum educational qualifications:
-M.Sc. Dietetics / M.Sc. Nutrition / M.Sc. Dietetics & Nutrition / M.Sc. Nutrition and Dietetics / M.Sc. Dietetics & Food Service Management / M.Sc. Clinical Nutrition and Dietetics / M.Sc. Food, Nutrition and Dietetics / M.Sc. Food Science and Nutrition / M.Sc. Food and Nutrition from a recognized university plus six months of internship.
-​After qualifying the eligibility criteria for Registered Dietician (RD), the life member can avail of RD membership.`,
-      price: "	₹ 2500 /-",
-      documents: [
-        "Soft copies of all marksheet/degree of academic qualifications, internships, or training and updated curriculum vitae (CV).",
-        "Details of your work experience.",
-        "A soft copy of a passport-size recent photograph in colour.",
-        "Credit, debit card, UPI, or net banking details are needed to complete the payment.",
-      ],
-      benefits: [
-        "A downloadable official BDA Certificate of Membership.",
-        "Use of the website for member activities and e-learning.",
-        "Reduced subscription rates to conferences, seminars, workshops, symposiums, courses, and journals.",
-        "Reduced entrance fees to international, national, and affiliated regional meetings by BDA.",
-        "Regular e-newsletters on various topics pertaining to dietetics and nutrition.",
-      ],
-      additionalBenefits: [
-        "Apply for the Centre of Excellence and Fellowship in the Dietetics and Nutrition field.",
-        "Life Members shall be entitled to participate in all activities of the BDA.",
-        "Life Members will be eligible to be officers of the BDA.",
-        "Award of appreciation to the individuals who have made extraordinary contributions to the hospital, research, and health administration.",
-      ],
-    },
-    {
       id: "CM",
       title: "Corporate Membership (CM)",
       eligibility: `Any non-government organization (NGO) or institution teaching or disseminating education in dietetics, nutrition, food technology, or food and nutrition science that the association recognizes is eligible to become an institutional member by paying a one-time entry fee to Head Quarters.`,
@@ -216,8 +216,8 @@ M.Sc. Dietetics / M.Sc. Nutrition / M.Sc. Dietetics & Nutrition / M.Sc. Nutritio
   const titleStyle = {
     color: "#374151",
     marginBottom: "24px",
-    fontSize: "18px",
-    fontWeight: "600",
+    fontSize: "25px",
+    fontWeight: "bold",
     textAlign: "center",
   };
 
@@ -340,10 +340,9 @@ M.Sc. Dietetics / M.Sc. Nutrition / M.Sc. Dietetics & Nutrition / M.Sc. Nutritio
                 onClick={() => handleSelect(membership)}
                 style={{
                   padding: "8px 16px",
-                  background: "#1976d2",
-                  color: "#fff",
-                  border: "none",
+                  border: "2px solid #1E90FF", // Hex color (Dodger Blue)
                   borderRadius: 4,
+                  color: "#1E90FF",
                 }}
               >
                 View Details & Apply

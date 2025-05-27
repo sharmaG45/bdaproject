@@ -187,9 +187,6 @@ const EducationExperienceForm = () => {
                 className="border border-gray-300 rounded-md p-6 mb-6 shadow-sm bg-gray-50"
               >
                 <div className="flex justify-between items-center mb-4">
-                  <h4 className="text-xl font-semibold text-gray-700">
-                    Education #{index + 1}
-                  </h4>
                   <button
                     type="button"
                     onClick={() => removeEducation(index)}
@@ -279,6 +276,14 @@ const EducationExperienceForm = () => {
                       </p>
                     )}
                   </div>
+                  {/*  <button
+                    type="button"
+                    onClick={addEducation}
+                    className="w-15 h-15 flex items-center justify-center rounded-full bg-blue-600 hover:bg-blue-700 text-white text-xl font-bold shadow-md transition duration-200"
+                    aria-label="Add Education"
+                  >
+                    +
+                  </button> */}
                 </div>
               </div>
             ))}
@@ -304,9 +309,6 @@ const EducationExperienceForm = () => {
                 className="border border-gray-300 rounded-md p-6 mb-6 shadow-sm bg-gray-50"
               >
                 <div className="flex justify-between items-center mb-4">
-                  <h4 className="text-xl font-semibold text-gray-700">
-                    Experience #{index + 1}
-                  </h4>
                   <button
                     type="button"
                     onClick={() => removeExperience(index)}

@@ -130,7 +130,7 @@ export default function MobileVerificationForm() {
                 value={formData.FirstName}
                 onChange={handleChange}
                 disabled={loading}
-                placeholder=" "
+                placeholder="Noble"
                 className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 transition disabled:bg-gray-100 disabled:cursor-not-allowed"
               />
             </div>
@@ -145,7 +145,7 @@ export default function MobileVerificationForm() {
                 value={formData.LastName}
                 onChange={handleChange}
                 disabled={loading}
-                placeholder="Sharma"
+                placeholder="Sony"
                 className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-400 transition disabled:bg-gray-100 disabled:cursor-not-allowed"
               />
             </div>
