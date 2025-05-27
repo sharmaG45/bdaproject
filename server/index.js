@@ -12,6 +12,7 @@ app.use(
   cors({
     origin: process.env.FRONTEND_URL, // your React/Vite frontend port
     methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   })
 );
@@ -33,8 +34,8 @@ const MERCHANT_STATUS_URL = "https://api.phonepe.com/apis/hermes/pg/v1/status";
 
 const redirectUrl = "http://localhost:3000/status";
 
-const successUrl = "http://localhost:5173/payment-success";
-const failureUrl = "http://localhost:5173/payment-failure";
+const successUrl = `${process.env.FRONTEND_URL}/payment-success`;
+const failureUrl = `${process.env.FRONTEND_URL}/payment-failure`;
 
 app.post("/create-order", async (req, res) => {
   const { name, mobileNumber, amount } = req.body;
