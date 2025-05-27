@@ -10,8 +10,8 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:5173", // your React/Vite frontend port
-    methods: ["GET", "POST"],
+    origin: process.env.FRONTEND_URL, // your React/Vite frontend port
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
