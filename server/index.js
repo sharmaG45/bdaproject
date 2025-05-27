@@ -32,7 +32,7 @@ const MERCHANT_STATUS_URL = "https://api.phonepe.com/apis/hermes/pg/v1/status";
 // const MERCHANT_STATUS_URL =
 //   "https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/status";
 
-const redirectUrl = "http://localhost:3000/status";
+const redirectUrl = `${process.env.BACKEND_URL}/status`;
 
 const successUrl = `${process.env.FRONTEND_URL}/payment-success`;
 const failureUrl = `${process.env.FRONTEND_URL}/payment-failure`;
@@ -69,7 +69,7 @@ app.post("/create-order", async (req, res) => {
     "base64"
   );
   const keyIndex = 1;
-  const string = payload + "/apis/hermes/pg/v1/pay" + MERCHANT_KEY;
+  const string = payload + "/pg/v1/pay" + MERCHANT_KEY;
   const sha256 = crypto.createHash("sha256").update(string).digest("hex");
   const checksum = sha256 + "###" + keyIndex;
 
