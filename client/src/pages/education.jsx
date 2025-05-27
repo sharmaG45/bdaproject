@@ -25,7 +25,9 @@ const EducationExperienceForm = () => {
 
     axios
       .get(
-        `http://localhost:3000/api/v1/user-details/${encodeURIComponent(phone)}`
+        `${
+          import.meta.env.VITE_BACKEND_URL
+        }/api/v1/user-details/${encodeURIComponent(phone)}`
       )
       .then((res) => {
         const userData = res.data?.userData;

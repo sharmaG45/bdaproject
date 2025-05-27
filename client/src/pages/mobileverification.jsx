@@ -38,7 +38,7 @@ export default function MobileVerificationForm() {
   const validateStepOne = () => {
     const { title, FirstName, LastName, Phone, email } = formData;
     if (!title || !FirstName || !LastName || !Phone || !email) {
-     toast.success("Please fill all required fields.");
+      toast.success("Please fill all required fields.");
       return false;
     }
     return true;
@@ -49,7 +49,7 @@ export default function MobileVerificationForm() {
     setLoading(true);
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/v1/step-one",
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/step-one`,
         formData
       );
       toast.success("OTP sent successfully!");
@@ -68,10 +68,13 @@ export default function MobileVerificationForm() {
     }
     setLoading(true);
     try {
-      const res = await axios.post("http://localhost:3000/api/v1/verify_otp", {
-        Phone: formData.Phone,
-        otp,
-      });
+      const res = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/verify_otp`,
+        {
+          Phone: formData.Phone,
+          otp,
+        }
+      );
       toast.success("OTP verified successfully!");
       setOtpSent(false);
       setOtp("");

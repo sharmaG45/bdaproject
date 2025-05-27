@@ -25,7 +25,11 @@ const Success = () => {
     if (!phone) return;
 
     axios
-      .get(`${BASE_URL}/api/v1/user-details/${encodeURIComponent(phoneParam)}`)
+      .get(
+        `${
+          import.meta.env.VITE_BACKEND_URL
+        }/api/v1/user-details/${encodeURIComponent(phoneParam)}`
+      )
       .then((res) => {
         setUserData(res.data.userData);
       })

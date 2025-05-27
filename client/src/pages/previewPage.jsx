@@ -17,7 +17,11 @@ const PreviewPage = () => {
     if (!phone) return;
 
     axios
-      .get(`${BASE_URL}/api/v1/user-details/${encodeURIComponent(phone)}`)
+      .get(
+        `${
+          import.meta.env.VITE_BACKEND_URL
+        }/api/v1/user-details/${encodeURIComponent(phone)}`
+      )
       .then((res) => {
         setUserData(res.data.userData);
       })

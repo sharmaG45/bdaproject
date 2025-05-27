@@ -23,13 +23,13 @@ const MERCHANT_KEY = process.env.MERCHANT_KEY;
 const MERCHANT_ID = process.env.MERCHANT_ID;
 
 // For Production
-// const MERCHANT_BASE_URL = "https://api.phonepe.com/apis/hermes/pg/v1/pay";
-// const MERCHANT_STATUS_URL = "https://api.phonepe.com/apis/hermes/pg/v1/status";
+const MERCHANT_BASE_URL = "https://api.phonepe.com/apis/hermes/pg/v1/pay";
+const MERCHANT_STATUS_URL = "https://api.phonepe.com/apis/hermes/pg/v1/status";
 
-const MERCHANT_BASE_URL =
-  "https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/pay";
-const MERCHANT_STATUS_URL =
-  "https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/status";
+// const MERCHANT_BASE_URL =
+//   "https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/pay";
+// const MERCHANT_STATUS_URL =
+//   "https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/status";
 
 const redirectUrl = "http://localhost:3000/status";
 

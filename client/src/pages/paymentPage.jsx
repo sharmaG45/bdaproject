@@ -11,7 +11,11 @@ const PaymentSuccessPage = () => {
   useEffect(() => {
     if (membershipId) {
       axios
-        .get(`http://localhost:3000/api/v1/subscription/${membershipId}`)
+        .get(
+          `${
+            import.meta.env.VITE_BACKEND_URL
+          }/api/v1/subscription/${membershipId}`
+        )
         .then((res) => {
           setMembership(res.data.subscription);
         })
@@ -41,14 +45,14 @@ const PaymentSuccessPage = () => {
     if (!membership) return;
 
     const data = {
-      name: membership.FirstName,
+      name: "BDA",
       mobileNumber: mobileNumber,
       amount: membership.amount.toString(),
     };
 
     try {
       const response = await axios.post(
-        "http://localhost:3000/create-order",
+        `${import.meta.env.VITE_BACKEND_URL}/create-order`,
         data
       );
       window.location.href = response.data.url;

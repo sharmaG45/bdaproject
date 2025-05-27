@@ -51,7 +51,7 @@ const StepTwoForm = ({ initialPhone }) => {
       try {
         const encodedPhone = encodeURIComponent(phoneToUse);
         const response = await axios.get(
-          `http://localhost:3000/api/v1/userData/${encodedPhone}`
+          `${import.meta.env.VITE_BACKEND_URL}/api/v1/userData/${encodedPhone}`
         );
         if (response.data?.userData) {
           setFormData((prev) => ({ ...prev, ...response.data.userData }));
