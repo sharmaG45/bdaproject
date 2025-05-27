@@ -164,7 +164,7 @@ const StepTwoForm = ({ initialPhone }) => {
       });
 
       const response = await axios.post(
-        "http://localhost:3000/api/v1/step-two",
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/step-two`,
         submissionData,
         {
           headers: {

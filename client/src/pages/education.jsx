@@ -145,7 +145,7 @@ const EducationExperienceForm = () => {
       });
 
       const response = await axios.post(
-        "http://localhost:3000/api/v1/step-three",
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/step-three`,
         formData,
         {
           headers: {
