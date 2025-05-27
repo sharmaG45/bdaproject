@@ -45,9 +45,9 @@ app.post("/create-order", async (req, res) => {
     name,
     mobileNumber,
     amount,
-    "***********************"
+    "************************************"
   );
-
+  const fullPhone = `+91${mobileNumber}`;
   //payment
   const paymentPayload = {
     merchantId: MERCHANT_ID,
@@ -55,7 +55,9 @@ app.post("/create-order", async (req, res) => {
     mobileNumber: mobileNumber,
     amount: amount * 100,
     merchantTransactionId: orderId,
-    redirectUrl: `${redirectUrl}/?id=${orderId}`,
+    redirectUrl: `${redirectUrl}/?id=${orderId}&phone=${encodeURIComponent(
+      fullPhone
+    )}`,
     redirectMode: "POST",
     paymentInstrument: {
       type: "PAY_PAGE",
@@ -100,6 +102,9 @@ app.post("/create-order", async (req, res) => {
 
 app.post("/status", async (req, res) => {
   const merchantTransactionId = req.query.id;
+  const phone = req.query.phone;
+
+  console.log("User Phone Number", phone);
 
   const keyIndex = 1;
   const string =
@@ -135,7 +140,9 @@ app.post("/status", async (req, res) => {
     if (status === "COMPLETED" && responseCode === "SUCCESS") {
       console.log("Transaction Details", transactionId);
 
-      return res.redirect(`${successUrl}?transactionId=${transactionId}`);
+      return res.redirect(
+        `${successUrl}?transactionId=${transactionId}&phone=${phone}`
+      );
     } else {
       return res.redirect(failureUrl);
     }

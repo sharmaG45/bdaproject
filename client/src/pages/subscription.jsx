@@ -134,7 +134,7 @@ The process of availing of membership shall be the same as for domestic membersh
       id: "IM",
       title: "Institutional Membership (IM)",
       eligibility: `Any non-government organization (NGO) or institution teaching or disseminating education in dietetics, nutrition, food technology, or food and nutrition science that the association recognizes is eligible to become an institutional member by paying a one-time entry fee to Head Office, BDA.`,
-      price: "₹ 10,000 /-",
+      price: "₹ 2,00,000/-",
       documents: [
         "Soft copies of all marksheet/degree of academic qualifications, internships or training, and updated curriculum vitae (CV) of faculty members.",
         "Details of faculty work experience.",

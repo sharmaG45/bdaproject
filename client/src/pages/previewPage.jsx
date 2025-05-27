@@ -9,6 +9,8 @@ const PreviewPage = () => {
   const navigate = useNavigate();
   const { phone, membershipId } = location.state || {};
 
+  console.log("previewPage Phone Number", phone);
+
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {

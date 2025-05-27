@@ -171,6 +171,9 @@ M.Sc. Dietetics / M.Sc. Nutrition / M.Sc. Dietetics & Nutrition / M.Sc. Nutritio
 
 userRouter.get("/userData/:phone", async (req, res) => {
   const { phone } = req.params;
+  
+  console.log("Phone NUmber",phone);
+  
 
   console.log(`Requested Phone Number: ${phone}`);
 
@@ -197,9 +200,6 @@ userRouter.get("/userData/:phone", async (req, res) => {
     snapshot.forEach((doc) => {
       users.push(doc.data());
     });
-
-    // Save to tempUsers for future quick access
-    tempUsers[phone] = { userData: users[0] };
 
     console.log("Returning from Firestore:", users[0]);
     return res.status(200).json({ userData: users[0] }); // You can return all if needed
@@ -520,8 +520,6 @@ userRouter.get("/user-details/:phone", async (req, res) => {
     snapshot.forEach((doc) => {
       users.push(doc.data());
     });
-
-    tempUsers[phone] = { userData: users[0] };
 
     console.log("Returning from Firestore:", users[0]);
     return res.status(200).json({ userData: users[0] });
