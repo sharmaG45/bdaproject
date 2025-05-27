@@ -54,7 +54,7 @@ app.post("/create-order", async (req, res) => {
     merchantId: MERCHANT_ID,
     merchantUserId: name,
     mobileNumber: mobileNumber,
-    amount: amount * 100,
+    amount: Number(amount) * 100,
     merchantTransactionId: orderId,
     redirectUrl: `${redirectUrl}/?id=${orderId}&phone=${encodeURIComponent(
       fullPhone
@@ -69,7 +69,7 @@ app.post("/create-order", async (req, res) => {
     "base64"
   );
   const keyIndex = 1;
-  const string = payload + "/pg/v1/pay" + MERCHANT_KEY;
+  const string = payload + "/apis/hermes/pg/v1/pay" + MERCHANT_KEY;
   const sha256 = crypto.createHash("sha256").update(string).digest("hex");
   const checksum = sha256 + "###" + keyIndex;
 
@@ -83,6 +83,7 @@ app.post("/create-order", async (req, res) => {
       accept: "application/json",
       "Content-Type": "application/json",
       "X-VERIFY": checksum,
+      "X-MERCHANT-ID": MERCHANT_ID,
     },
     data: {
       request: payload,
